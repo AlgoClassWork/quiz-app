@@ -19,3 +19,20 @@ def create_table():
     correct_option INTEGER NOT NULL) ''')
     connection.commit()
     connection.close()
+
+def add_question(q, o1, o2, o3, o4, correct):
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute(''' 
+    INSERT INTO questions (question, option1, option2, option3 , option4, correct_option)
+    VALUES (?, ?, ?, ?, ?, ?)''', (q, o1, o2, o3, o4, correct))
+    connection.commit()
+    connection.close()
+
+def get_questions():
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute('SELECT * FROM questions')
+    questions = cursor.fetchall()
+    connection.close()
+    return questions
